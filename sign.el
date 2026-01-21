@@ -313,22 +313,27 @@ If signal-cli is not in your $PATH, provide the absolute path here."
   (when sticker
     (let* ((pack-id (alist-get 'packId sticker))
            (sticker-id (alist-get 'stickerId sticker))
-           (emoji (alist-get 'emoji sticker))
+           (emoji (or (alist-get 'emoji sticker) "🧩"))
            (file (if (and pack-id sticker-id)
                      (signel-find-sticker pack-id sticker-id)
                    nil)))
 
       (insert "\n")
       (cond
-       ;; Attempt to render WebP (native in Emacs 29+, or via ImageMagick)
-       ((and file
-             (or (image-type-available-p 'webp)
-                 (image-type-available-p 'imagemagick)))
-        (let ((image (create-image file (if (image-type-available-p 'webp) 'webp 'imagemagick) nil :max-width 150)))
-          (insert-image image)))
-       ;; Fallback text
+       ;; Try to create image (force type if extension missing)
+       (file
+        (let ((image (or (create-image file nil nil :max-width 150)       ; Auto-detect
+                         (create-image file 'png nil :max-width 150)      ; Force PNG (Handles APNG)
+                         (create-image file 'webp nil :max-width 150))))  ; Force WebP
+
+          (if image
+              (insert-image image)
+            ;; Fallback text if rendering fails
+            (insert (propertize (format "[Sticker %s (Render Failed)]" emoji)
+                                'face 'font-lock-warning-face)))))
+       ;; File not found
        (t
-        (insert (propertize (if emoji (format "[Sticker %s]" emoji) "[Sticker]")
+        (insert (propertize (format "[Sticker %s]" emoji)
                             'face 'font-lock-constant-face))))))
 
   ;; 2. Handle Attachments
