@@ -1,7 +1,7 @@
 * Sign.el
 
-Signel is an Emacs interface for [[https://signal.org][Signal]]. It communicates with a running
-~signal-cli~ daemon via JSON-RPC to send and receive messages asynchronously.
+Sign.el is an Emacs interface for [[https://signal.org][Signal]]. It communicates with a running
+~signal-cli~ daemon via JSON-RPC to send and receive messages.
 
 ** Features
 
