@@ -181,7 +181,7 @@ If signal-cli is not in your $PATH, provide the absolute path here."
 
 (defvar signel-partial-line "")
 
-(defun signel-process-filter (proc string)
+(defun signel-process-filter (_proc string)
   "Accumulate output from PROC and parse complete JSON objects from STRING."
   (setq signel-partial-line (concat signel-partial-line string))
   (let ((lines (split-string signel-partial-line "\n")))
