@@ -3,7 +3,7 @@
 ;; Copyright (C) 2026 Free Software Foundation, Inc.
 
 ;; Author: Keenan Salandy <keenan@salandy.dev>
-;; Version: 1.0.0
+;; Version: 1.1.0
 ;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: comm, signal, chat, external
 ;; URL: https://github.com/keenban/signel
