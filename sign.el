@@ -1,6 +1,6 @@
 ;;; sign.el --- Signal client for Emacs via signal-cli JSON-RPC  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2026 Free Software Foundation, Inc.
+;; Copyright (C) 2026 Keenan Salandy
 
 ;; Author: Keenan Salandy <keenan@salandy.dev>
 ;; Maintainer: Keenan Salandy <keenan@salandy.dev>
