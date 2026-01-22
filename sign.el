@@ -526,6 +526,12 @@ media data, and IS-ME is non-nil if the message is from the user."
 
 ;;; Interactive Commands
 
+(defun signel--is-group-id (id)
+  "Return non-nil if ID looks like a group ID (base64).
+Returns nil if ID is a phone number (+) or UUID (contains -)."
+  (not (or (string-prefix-p "+" id)
+           (string-match-p "-" id))))
+
 (defun signel-send-input ()
   "Send the input from the prompt to the current chat."
   (interactive)
@@ -536,7 +542,7 @@ media data, and IS-ME is non-nil if the message is from the user."
       (let ((inhibit-read-only t))
         (delete-region start end))
 
-      (let ((is-group (not (string-prefix-p "+" signel-chat-id)))
+      (let ((is-group (signel--is-group-id signel-chat-id))
             (params `((message . ,text))))
         (if is-group
             (push `(groupId . ,signel-chat-id) params)
@@ -552,7 +558,7 @@ media data, and IS-ME is non-nil if the message is from the user."
   (unless signel-chat-id
     (user-error "Not in a Signal chat buffer"))
   (let* ((full-path (expand-file-name file-path))
-         (is-group (not (string-prefix-p "+" signel-chat-id)))
+         (is-group (signel--is-group-id signel-chat-id))
          (params `((attachments . [,full-path]))))
     (if is-group
         (push `(groupId . ,signel-chat-id) params)
