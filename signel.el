@@ -1,4 +1,4 @@
-;;; sign.el --- Signal client for Emacs via signal-cli JSON-RPC  -*- lexical-binding: t; -*-
+;;; signel.el --- Signal client for Emacs via signal-cli JSON-RPC  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2026 Keenan Salandy
 
@@ -25,7 +25,7 @@
 
 ;;; Commentary:
 
-;; Sign.el provides a lightweight, text-based interface for Signal
+;; Signel.el provides a lightweight, text-based interface for Signal
 ;; within Emacs. It communicates with a running `signal-cli' daemon
 ;; via JSON-RPC.
 ;;
