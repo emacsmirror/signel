@@ -1,6 +1,6 @@
-* Sign.el
+* Signel
 
-Sign.el is an Emacs interface for [[https://signal.org][Signal]]. It communicates with a running
+Signel is an Emacs interface for [[https://signal.org][Signal]]. It communicates with a running
 ~signal-cli~ daemon via JSON-RPC to send and receive messages.
 
 ** Features
@@ -19,7 +19,7 @@ Sign.el is an Emacs interface for [[https://signal.org][Signal]]. It communicate
 
 ** Setup
 
-Before running Sign.el, you must link or register your account using the command line.
+Before running Signel, you must link or register your account using the command line.
 
 *** Example (Linking a new device)
 
@@ -38,7 +38,7 @@ Clone the repository and add it to your load path.
   :load-path "~/.emacs.d/site-lisp/signel" ;; Adjust path as needed
   :config
   ;; REQUIRED: Your registered phone number
-  (setq signel-account "+15551234567")
+  (setq signel-account "+15550000000")
 
   ;; Optional: If signal-cli is not in your $PATH
   ;; (setq signel-cli-program "/usr/local/bin/signal-cli")
