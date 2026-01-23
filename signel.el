@@ -25,9 +25,8 @@
 
 ;;; Commentary:
 
-;; Signel.el provides a lightweight, text-based interface for Signal
-;; within Emacs.  It communicates with a running `signal-cli' daemon
-;; via JSON-RPC.
+;; Signel.el provides a lightweight, text-based interface for Signal. It
+;; communicates with a running `signal-cli' daemon via JSON-RPC.
 ;;
 ;; Features:
 ;; - Strict chat buffers (read-only history, guarded prompt).
@@ -64,7 +63,7 @@ This must match the account registered with signal-cli."
 
 (defcustom signel-cli-program (or (executable-find "signal-cli") "signal-cli")
   "Path to the signal-cli executable.
-This program is a runtime dependency.  If it is in your `exec-path',
+This program is a runtime dependency.  If it is in your variable `exec-path',
 this is automatically set.  Otherwise, you must provide the absolute path."
   :type 'file)
 
@@ -530,7 +529,7 @@ media data, and IS-ME is non-nil if the message is from the user."
 ;;; Interactive Commands
 
 (defun signel--is-group-id (id)
-  "Return non-nil if ID looks like a group ID (base64).
+  "Return non-nil if ID look like a group ID (base64).
 Returns nil if ID is a phone number (+) or UUID (contains -)."
   (not (or (string-prefix-p "+" id)
            (string-match-p "-" id))))
