@@ -26,7 +26,7 @@
 ;;; Commentary:
 
 ;; Signel.el provides a lightweight, text-based interface for Signal
-;; within Emacs. It communicates with a running `signal-cli' daemon
+;; within Emacs.  It communicates with a running `signal-cli' daemon
 ;; via JSON-RPC.
 ;;
 ;; Features:
@@ -64,8 +64,8 @@ This must match the account registered with signal-cli."
 
 (defcustom signel-cli-program (or (executable-find "signal-cli") "signal-cli")
   "Path to the signal-cli executable.
-This program is a runtime dependency. If it is in your `exec-path',
-this is automatically set. Otherwise, you must provide the absolute path."
+This program is a runtime dependency.  If it is in your `exec-path',
+this is automatically set.  Otherwise, you must provide the absolute path."
   :type 'file)
 
 (defcustom signel-data-directory (expand-file-name "~/.local/share/signal-cli")
@@ -89,11 +89,11 @@ When nil, only the first frame of animated media will be displayed."
 ;;; Faces
 
 (defface signel-my-msg-face
-  '((t :inherit font-lock-function-name-face :weight bold))
+  '((t :inherit font-lock-function-name-face))
   "Face applied to your own messages.")
 
 (defface signel-other-msg-face
-  '((t :inherit font-lock-variable-name-face :weight bold))
+  '((t :inherit font-lock-variable-name-face))
   "Face applied to messages from other users.")
 
 (defface signel-timestamp-face
@@ -149,8 +149,7 @@ When nil, only the first frame of animated media will be displayed."
   "Start the signal-cli JSON-RPC process."
   (interactive)
   (unless (executable-find signel-cli-program)
-    (user-error "The signal-cli executable '%s' was not found. Please install it or check
-`signel-cli-program'." signel-cli-program))
+    (user-error "The signal-cli executable '%s' was not found. Please install it or check `signel-cli-program'" signel-cli-program))
 
   (unless signel-account
     (user-error "Variable `signel-account' is not set"))
@@ -182,7 +181,8 @@ When nil, only the first frame of animated media will be displayed."
 
 (defun signel--send-rpc (method params &optional target-buffer)
   "Send a JSON-RPC payload with METHOD and PARAMS.
-If TARGET-BUFFER is non-nil, map the request ID to that buffer for error handling."
+If TARGET-BUFFER is non-nil, map the request ID to that buffer for
+error handling."
   (unless (get-process signel--process-name)
     (error "Signel service not running. M-x signel-start"))
   (let* ((id (cl-incf signel--rpc-id-counter))
@@ -200,7 +200,7 @@ If TARGET-BUFFER is non-nil, map the request ID to that buffer for error handlin
 ;;; Parsing & Dispatch
 
 (defun signel--process-filter (_proc string)
-  "Accumulate output from _PROC and parse complete JSON objects from STRING."
+  "Accumulate output from process and parse complete JSON objects from STRING."
   (setq signel--partial-line (concat signel--partial-line string))
   ;; DoS Protection: Reset buffer if it gets suspiciously large without a newline
   (when (> (length signel--partial-line) 100000)
@@ -330,7 +330,7 @@ If TARGET-BUFFER is non-nil, map the request ID to that buffer for error handlin
 
 (defun signel--convert-apng-to-gif (file)
   "Convert APNG FILE to a temporary GIF using ImageMagick `convert'.
-Returns the path to the temporary GIF.  Uses `unwind-protect' to ensure cleanup."
+Returns the path to the temporary GIF."
   (let ((tmp-gif (make-temp-file "signel-sticker-" nil ".gif")))
     (if (executable-find "convert")
         (with-temp-buffer
@@ -349,7 +349,8 @@ Returns the path to the temporary GIF.  Uses `unwind-protect' to ensure cleanup.
       nil)))
 
 (defun signel--insert-media (attachments sticker)
-  "Insert buttons or inline images for ATTACHMENTS and STICKER with animation support."
+  "Insert buttons or inline images for ATTACHMENTS and STICKER.
+Handles animation support if enabled."
   ;; 1. Handle Stickers
   (when sticker
     (let* ((pack-id (alist-get 'packId sticker))
@@ -502,7 +503,7 @@ media data, and IS-ME is non-nil if the message is from the user."
         (delete-region (point) (point-max))
 
         ;; Insert Message
-        (insert (propertize (format-time-string "[%H:%M] " ) 'face 'signel-timestamp-face))
+        (insert (propertize (format-time-string "[%H:%M] ") 'face 'signel-timestamp-face))
         (insert (propertize (concat "<" name "> ") 'face name-face))
         (when text (insert text))
         (when (or attachments sticker)
