@@ -84,7 +84,3 @@ For a basic configuration, place this in your ~user-init-file~
 | ~n~   | ~forward-button~              | Next chat          |
 | ~p~   | ~backward-button~             | Previous chat      |
 | ~g~   | ~signel-dashboard-refresh~    | Refresh list       |
-
-** License
-
-GPLv3
